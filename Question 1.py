@@ -5,11 +5,13 @@ from geopy.distance import geodesic
 
 # location of each Hub
 
-class location:
-    def __init__(self, latitude, longitude, color):
+class deliveryhub:
+    def __init__(self, name, latitude, longitude, color):
+        self.name      = name
         self.latitude  = latitude
         self.longitude = longitude
         self.color     = color
+        self.latlon    = (self.latitude,self.longitude)
 
 class customer:
     def __init__(self,originname, originlat, originlon,destinationname, destinationlat, destinationlon):
@@ -22,13 +24,18 @@ class customer:
         self.destinationlat  = destinationlat
         self.destinationlon  = destinationlon
         self.distance        = geodesic(self.origin,self.destination)
+    
+    def stopby(self,latitude,longitude):
+        stopbylocation = (latitude,longitude)
+        stopbydistance = geodesic(self.origin,stopbylocation) + geodesic(stopbylocation,self.destination)
+        return stopbydistance
 
 #deliveryhub
-citylink = location(3.0319924887507144, 101.37344116244806,  "green")
-poslaju  = location(3.112924170027219 , 101.63982650389863, "orange")
-gdex     = location(3.265154613796736 , 101.68024844550233,   "blue")
-JT       = location(2.9441205329488325, 101.7901521759029 ,    "red")
-dhl      = location(3.2127230893650065, 101.57467295692778, "yellow")
+deliveryhublist = [deliveryhub("City-link Express", 3.0319924887507144, 101.37344116244806, "green" ),
+                    deliveryhub("Pos Laju",          3.112924170027219 , 101.63982650389863, "orange"),
+                    deliveryhub("GDEX",              3.265154613796736 , 101.68024844550233, "blue"  ),
+                    deliveryhub("J&T",               2.9441205329488325, 101.7901521759029 , "red"   ),
+                    deliveryhub("DHL",               3.2127230893650065, 101.57467295692778, "yellow")]
 
 #customer
 c1 = customer("Rawang",     3.3615395462207878,101.56318183511695,"Bukit Jeluton",3.1000170516638885,101.53071480907951)
@@ -37,11 +44,11 @@ c3 = customer("Ampang",     3.141855957281073, 101.76158583424586,"Cyberjaya",  
 
 #deliverhub location(use for gmplot scatter)
 deliveryhub = zip(*[
-    (citylink.latitude,citylink.longitude),
-    (poslaju.latitude,poslaju.longitude),
-    (gdex.latitude,gdex.longitude),
-    (JT.latitude,JT.longitude),
-    (dhl.latitude,dhl.longitude)
+    deliveryhublist[0].latlon,
+    deliveryhublist[1].latlon,
+    deliveryhublist[2].latlon,
+    deliveryhublist[3].latlon,
+    deliveryhublist[4].latlon
 ])
 
 geolocator = Nominatim(user_agent="Question1")
@@ -62,12 +69,17 @@ gmap = gmplot.GoogleMapPlotter(3.128753803910095, 101.59555418169249,11,apikey)
 
 
 #Q1 1)
-gmap.scatter(*deliveryhub, color=[citylink.color, poslaju.color, gdex.color, JT.color, dhl.color],marker=True)
+for i in range(len(deliveryhublist)):
+    gmap.marker(deliveryhublist[i].latitude,deliveryhublist[i].longitude,color = deliveryhublist[i].color, label = deliveryhublist[i].name)
+# gmap.scatter(*deliveryhub, color=[citylink.color, poslaju.color, gdex.color, JT.color, dhl.color],marker=True)
 gmap.draw('map.html')
 
 #Q1 2)
+for i in range(len(deliveryhublist)):
+    print(str(c1.distance) + "  stop by at"+ deliveryhublist[i].name + ": "+ str(c1.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude)))
 
-print(c1.distance)
+# print("helasdfa"+str(c1.stopby(deliveryhublist[1].latitude,deliveryhublist[1].longitude)))
+
 print(c2.distance)
 print(c3.distance)
 
