@@ -69,6 +69,7 @@ gmap = gmplot.GoogleMapPlotter(3.128753803910095, 101.59555418169249,11,apikey=a
 
 
 #Q1 1)
+
 for i in range(len(deliveryhublist)):
     gmap.marker(deliveryhublist[i].latitude,deliveryhublist[i].longitude,color = deliveryhublist[i].color, label = deliveryhublist[i].name)
 # gmap.scatter(*deliveryhub, color=[citylink.color, poslaju.color, gdex.color, JT.color, dhl.color],marker=True)
@@ -76,12 +77,48 @@ gmap.draw('map.html')
 
 #Q1 2)
 
+print(c1.distance)
+print(c2.distance)
+print(c3.distance)
+print()
+
+#Q1 3)
+
+c1leastdistance = 0
+c2leastdistance = 0
+c3leastdistance = 0
+j = 0
+
 for i in range(len(deliveryhublist)):
 
-    print("Stop by at"+ deliveryhublist[i].name + ": "+ str(c1.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude)))
+    if i == 0:
+        c1leastdistance = c1.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude)
+    elif c1leastdistance > c1.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude):
+        c1leastdistance = c1.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude)
+        j = i
 
-    print("Stop by at"+ deliveryhublist[i].name + ": "+ str(c2.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude)))
+print("Stop by at is quicker "+ deliveryhublist[j].name + ": "+ str(c1.stopby(deliveryhublist[j].latitude,deliveryhublist[j].longitude)))
+j = 0
+for i in range(len(deliveryhublist)):
 
-    print("Stop by at"+ deliveryhublist[i].name + ": "+ str(c3.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude)))
-    
+    if i == 0:
+        c2leastdistance = c2.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude)
+    elif c2leastdistance > c2.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude):
+        c2leastdistance = c2.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude)
+        j = i
 
+
+print("Stop by at is quicker "+ deliveryhublist[j].name + ": "+ str(c2.stopby(deliveryhublist[j].latitude,deliveryhublist[j].longitude)))
+
+j=0
+for i in range(len(deliveryhublist)):
+
+    if i == 0:
+        c3leastdistance = c3.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude)
+    elif c3leastdistance > c3.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude):
+        c3leastdistance = c3.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude)
+        j = i
+
+print("Stop by at is quicker "+ deliveryhublist[j].name + ": "+ str(c3.stopby(deliveryhublist[j].latitude,deliveryhublist[j].longitude)))
+
+# Q1 4)
