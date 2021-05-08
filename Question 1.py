@@ -75,16 +75,12 @@ for i in range(len(deliveryhublist)):
 gmap.draw('map.html')
 
 #Q1 2)
+
 for i in range(len(deliveryhublist)):
-    print(str(c1.distance) + "  stop by at"+ deliveryhublist[i].name + ": "+ str(c1.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude)))
 
-# print("helasdfa"+str(c1.stopby(deliveryhublist[1].latitude,deliveryhublist[1].longitude)))
+    print("Stop by at"+ deliveryhublist[i].name + ": "+ str(c1.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude)))
 
-print(c2.distance)
-print(c3.distance)
+    print("Stop by at"+ deliveryhublist[i].name + ": "+ str(c2.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude)))
 
-# from geopy.distance import geodesic
-# newport_ri = (41.49008, -71.312796)
-# cleveland_oh = (41.499498, -81.695391)
-# print(geodesic(newport_ri, cleveland_oh).miles)
+    print("Stop by at"+ deliveryhublist[i].name + ": "+ str(c3.stopby(deliveryhublist[i].latitude,deliveryhublist[i].longitude)))
 
