@@ -65,7 +65,7 @@ geolocator = Nominatim(user_agent="Question1")
 # print(DHL.address)
 
 apikey = 'AIzaSyBjsKRkTNzMm-elG3Fu9UywPCt1yS03q0Y'
-gmap = gmplot.GoogleMapPlotter(3.128753803910095, 101.59555418169249,11,apikey)
+gmap = gmplot.GoogleMapPlotter(3.128753803910095, 101.59555418169249,11,apikey=apikey)
 
 
 #Q1 1)
