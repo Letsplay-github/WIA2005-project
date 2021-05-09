@@ -122,3 +122,6 @@ for i in range(len(deliveryhublist)):
 print("Stop by at is quicker "+ deliveryhublist[j].name + ": "+ str(c3.stopby(deliveryhublist[j].latitude,deliveryhublist[j].longitude)))
 
 # Q1 4)
+
+gmap.directions((c1.originlat,c1.originlon),(c1.destinationlat,c1.destinationlon),waypoints=[(c1.originlat,c1.originlon),(deliveryhublist[0].latitude,deliveryhublist[0].longitude),(c1.destinationlat,c1.destinationlon)])
+gmap.draw('route.html')
