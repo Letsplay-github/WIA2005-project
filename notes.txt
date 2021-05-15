@@ -1,14 +1,18 @@
-color for folium marker
-{'darkblue', 'blue', 'lightblue', 'cadetblue', 'black', 'white', 'lightgreen', 'gray', 'red', 'darkred', 'green', 'purple', 'lightgray', 'lightred', 'beige', 'orange', 'darkpurple', 'darkgreen', 'pink'}.
-
-
-Customer color
-customer1: 'lightred'
-customer2: 'purple'
-customer3: 'green'
-
 You guys need to install 
     -openrouteservice
         pip install openrouteservice
     -folium
         pip install folium
+
+
+
+
+
+
+color for folium marker
+{'darkblue', 'blue', 'lightblue', 'cadetblue', 'black', 'white', 'lightgreen', 'gray', 'red', 'darkred', 'green', 'purple', 'lightgray', 'lightred', 'beige', 'orange', 'darkpurple', 'darkgreen', 'pink'}.
+
+Customer color
+customer1: 'lightred'
+customer2: 'purple'
+customer3: 'green'
