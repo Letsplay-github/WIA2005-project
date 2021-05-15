@@ -4,15 +4,20 @@ You guys need to install
     -folium
         pip install folium
 
-
-
-
-
-
-color for folium marker
+color that folium marker can use
 {'darkblue', 'blue', 'lightblue', 'cadetblue', 'black', 'white', 'lightgreen', 'gray', 'red', 'darkred', 'green', 'purple', 'lightgray', 'lightred', 'beige', 'orange', 'darkpurple', 'darkgreen', 'pink'}.
 
-Customer color
+We use these Customer color 
 customer1: 'lightred'
 customer2: 'purple'
 customer3: 'green'
+
+link for the articles 3 each(need to find more)
+-City-link Express 
+    >https://www.bigwheels.my/city-link-buys-isuzu-trucks/
+-Pos Laju
+    >https://www.prnewswire.com/news-releases/pos-laju-recognized-by-frost--sullivan-for-dominating-the-delivery-service-market-in-malaysia-on-the-strength-of-its-vast-channel-network-301194852.html
+-GDEX
+-J&T
+-DHL
+    >https://www.nst.com.my/news/nation/2021/02/667583/dhl-express-delivers-first-batch-covid-19-vaccines-malaysia
