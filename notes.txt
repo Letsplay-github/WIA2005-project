@@ -1,3 +1,4 @@
+{% comment %} Problem 1 {% endcomment %}
 You guys need to install 
     -openrouteservice
         pip install openrouteservice
@@ -12,6 +13,7 @@ customer1: 'lightred'
 customer2: 'purple'
 customer3: 'green'
 
+{% comment %} Problem 2 {% endcomment %}
 link for the articles 3 each(need to find more)
 -City-link Express 
     >https://www.bigwheels.my/city-link-buys-isuzu-trucks/
@@ -21,3 +23,9 @@ link for the articles 3 each(need to find more)
 -J&T
 -DHL
     >https://www.nst.com.my/news/nation/2021/02/667583/dhl-express-delivers-first-batch-covid-19-vaccines-malaysia
+
+{% comment %} Problem 4 {% endcomment %}
+references(click ctrl to hover)
+>https://towardsdatascience.com/dynamic-time-warping-3933f25fcdd
+>https://betterprogramming.pub/how-to-do-speech-recognition-with-a-dynamic-time-warping-algorithm-159c2a1bb83c
+>https://pages.databricks.com/rs/094-YMS-629/images/dynamic-time-warping-background.html#:~:text=input%20time%20series.-,Dynamic%20time%20warping%20is%20a%20seminal%20time%20series%20comparison%20technique,on%20ordered%20graph%20searching%20techniques.
