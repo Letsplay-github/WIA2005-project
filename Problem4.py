@@ -29,8 +29,10 @@ def dtw(s, t):
     return dtw_matrix
 
 
-a = [1, 2, 23, 43, 1005]
-b = [1, 2, 92, 82, 22, 12, 972, 54]
+a = [1, 2, 3, 3, 5]
+b = [1, 2, 3, 3, 5, 2, 2, 4, 6, 8]
+print(a)
+print(b)
 print(dtw(a, b))
 
 distance, path = fastdtw(a, b, dist=euclidean)

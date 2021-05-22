@@ -29,3 +29,6 @@ references(click ctrl to hover)
 >https://towardsdatascience.com/dynamic-time-warping-3933f25fcdd
 >https://betterprogramming.pub/how-to-do-speech-recognition-with-a-dynamic-time-warping-algorithm-159c2a1bb83c
 >https://pages.databricks.com/rs/094-YMS-629/images/dynamic-time-warping-background.html#:~:text=input%20time%20series.-,Dynamic%20time%20warping%20is%20a%20seminal%20time%20series%20comparison%20technique,on%20ordered%20graph%20searching%20techniques.
+
+J&T 'memohon maaf'
+>https://www.youtube.com/watch?v=jakXuYE8gT4
