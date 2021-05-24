@@ -35,10 +35,7 @@ b = [1, 2, 3, 3, 5, 2, 2, 4, 6, 8]
 print(a)
 print(b)
 JandTaudiodir = 'J&T Perak Mohon Maaf Secara Terbuka2.wav'
-try:
-    samplerate, data = read(JandTaudiodir)
-except WavFileWarning:
-    print(JandTaudiodir + "is Error")
+
 # print(data)
 # print(samplerate)
 
