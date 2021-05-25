@@ -1,4 +1,6 @@
 import numpy as np
+import os
+import librosa
 from fastdtw import fastdtw
 from scipy.spatial.distance import euclidean
 from scipy.io.wavfile import WavFileWarning, read
@@ -30,18 +32,38 @@ def dtw(s, t):
     return dtw_matrix
 
 
-a = [1, 2, 3, 3, 5]
-b = [1, 2, 3, 3, 5, 2, 2, 4, 6, 8]
-print(a)
-print(b)
-JandTaudiodir = 'JandT.wav'
-samplerate, data = read(JandTaudiodir)
-print(data)
-# print(data)
-# print(samplerate)
+# a = [1, 2, 3, 3, 5]
+# b = [1, 2, 3, 3, 5, 2, 2, 4, 6, 8]
+# print(a)
+# print(b)
 
+VOJandT = 'VoiceOver_J and T.wav'
+JandTaudio = 'JandT.wav'
+memohonaudio = 'memohon.wav'
+maafaudio = 'maaf.wav'
+# *TODO add all audio directory
 
-# print(dtw(a, b))
+# JandTaudioRATE, JandTaudioDATA = read(JandTaudio)
+# VOJandTRATE, VOJandTDATA= read(VOJandT)
+# memohonRATE, memohonaudioDATA = read(memohonaudio)
+
+VOJandTDATA, VOJandTRATE = librosa.load(VOJandT)
+JandTaudioDATA, JandTaudioRATE = librosa.load(JandTaudio)
+memohonaudioDATA, memohonRATE = librosa.load(memohonaudio)
+maafaudioDATA, maafRATE = librosa.load(maafaudio)
+
+print("Rate of test audio'J&T':" + str(JandTaudioRATE) +
+      ", Original: " + str(VOJandTRATE))
+
+# data1 = np.amax(VOJandTDATA, axis=1)
+# data2 = np.amax(JandTaudioDATA, axis=1)
+# data3 = np.amax(memohonaudioDATA, axis=1)
+
+# print(fastdtw(data1, data2)[0])
+# print(fastdtw(data1, data3)[0])
+print(fastdtw(VOJandTDATA, JandTaudioDATA)[0])
+print(fastdtw(VOJandTDATA, memohonaudioDATA)[0])
+print(fastdtw(VOJandTDATA, maafaudioDATA)[0])
 
 # distance, path = fastdtw(a, b, dist=euclidean)
 
