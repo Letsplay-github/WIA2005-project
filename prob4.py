@@ -38,16 +38,19 @@ def dtw(s, t):
 # print(b)
 
 VOJandT = 'VoiceOver_J and T.wav'
+VOmemohon = 'VoiceOver_memohon.wav'
+VOmaaf = 'VoiceOver_maaf.wav'
 JandTaudio = 'JandT.wav'
 memohonaudio = 'memohon.wav'
 maafaudio = 'maaf.wav'
-# *TODO add all audio directory
 
 # JandTaudioRATE, JandTaudioDATA = read(JandTaudio)
 # VOJandTRATE, VOJandTDATA= read(VOJandT)
 # memohonRATE, memohonaudioDATA = read(memohonaudio)
 
 VOJandTDATA, VOJandTRATE = librosa.load(VOJandT)
+VOmemohonDATA, VOmemohonRATE = librosa.load(VOmemohon)
+VOmaafDATA, VOmaafRATE = librosa.load(VOmaaf)
 JandTaudioDATA, JandTaudioRATE = librosa.load(JandTaudio)
 memohonaudioDATA, memohonRATE = librosa.load(memohonaudio)
 maafaudioDATA, maafRATE = librosa.load(maafaudio)
@@ -64,6 +67,17 @@ print("Rate of test audio'J&T':" + str(JandTaudioRATE) +
 print(fastdtw(VOJandTDATA, JandTaudioDATA)[0])
 print(fastdtw(VOJandTDATA, memohonaudioDATA)[0])
 print(fastdtw(VOJandTDATA, maafaudioDATA)[0])
+print()
+print(fastdtw(VOmemohonDATA, JandTaudioDATA)[0])
+print(fastdtw(VOmemohonDATA, memohonaudioDATA)[0])
+print(fastdtw(VOmemohonDATA, maafaudioDATA)[0])
+print()
+print(fastdtw(VOmaafDATA, JandTaudioDATA)[0])
+print(fastdtw(VOmaafDATA, memohonaudioDATA)[0])
+print(fastdtw(VOmaafDATA, maafaudioDATA)[0])
+
+
+
 
 # distance, path = fastdtw(a, b, dist=euclidean)
 
