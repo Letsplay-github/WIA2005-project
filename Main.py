@@ -129,13 +129,14 @@ for j in range(0, len(customerlist)):
 for i in deliveryhublist:
     i.marker.add_to(m)
 
-# add route to map
+
 for c in customerlist:
     for i in range(0, len(c.routelist), 1):
         print("customer " + c.num + " using " +
               c.routelist[i].deliveryhub.name + "with distance of " + str(c.routelist[i].distance))
     print()
-
+    
+# add route to map
 folium.LayerControl().add_to(m)
 
 # add map to OurMap.html

@@ -8,30 +8,30 @@ from scipy.io.wavfile import WavFileWarning, read
 
 
 
-def dtw(s, t):
-    y, x = len(s), len(t)
-    dtw_matrix = np.zeros((y+1, x+1))
-    # np.zerosReturn a new array of given shape and type, filled with zeros.
+# def dtw(s, t):
+#     y, x = len(s), len(t)
+#     dtw_matrix = np.zeros((y+1, x+1))
+#     # np.zerosReturn a new array of given shape and type, filled with zeros.
 
-    for yindex in range(y+1):
-        for xindex in range(x+1):
-            dtw_matrix[yindex, xindex] = np.inf
-    dtw_matrix[0, 0] = 0
+#     for yindex in range(y+1):
+#         for xindex in range(x+1):
+#             dtw_matrix[yindex, xindex] = np.inf
+#     dtw_matrix[0, 0] = 0
 
-    for yindex in range(1, y+1):
-        for xindex in range(1, x+1):
-            cost = abs(s[yindex-1] - t[xindex-1])
+#     for yindex in range(1, y+1):
+#         for xindex in range(1, x+1):
+#             cost = abs(s[yindex-1] - t[xindex-1])
 
-            last_min = np.min(
-                [dtw_matrix[yindex-1, xindex],
-                 dtw_matrix[yindex, xindex-1],
-                 dtw_matrix[yindex-1, xindex-1]])
+#             last_min = np.min(
+#                 [dtw_matrix[yindex-1, xindex],
+#                  dtw_matrix[yindex, xindex-1],
+#                  dtw_matrix[yindex-1, xindex-1]])
 
-            dtw_matrix[yindex, xindex] = cost + last_min
+#             dtw_matrix[yindex, xindex] = cost + last_min
 
-    dtw_matrix = np.delete(dtw_matrix, 0, 0)
-    dtw_matrix = np.delete(dtw_matrix, 0, 1)
-    return dtw_matrix
+#     dtw_matrix = np.delete(dtw_matrix, 0, 0)
+#     dtw_matrix = np.delete(dtw_matrix, 0, 1)
+#     return dtw_matrix
 
 
 # a = [1, 2, 3, 3, 5]
@@ -40,18 +40,20 @@ def dtw(s, t):
 # print(b)
 # print(dtw(a,b))
 
-# using fastdtw library
+# # using fastdtw library
 # distance, path = fastdtw(a, b, dist=euclidean)
 # print(distance)
 # print(path)
 
-# -------------------------------------------------------------------------------------
-VOJandT = 'VoiceOver_J and T.wav'
-VOmemohon = 'VoiceOver_memohon.wav'
-VOmaaf = 'VoiceOver_maaf.wav'
-JandTaudio = 'JandT.wav'
-memohonaudio = 'memohon.wav'
-maafaudio = 'maaf.wav'
+# --------------------------------------------------------
+
+
+VOJandT = 'Problem4/VoiceOver_J and T.wav'
+VOmemohon = 'Problem4/VoiceOver_memohon.wav'
+VOmaaf = 'Problem4/VoiceOver_maaf.wav'
+JandTaudio = 'Problem4/JandT.wav'
+memohonaudio = 'Problem4/memohon.wav'
+maafaudio = 'Problem4/maaf.wav'
 
 # JandTaudioRATE, JandTaudioDATA = read(JandTaudio)
 # VOJandTRATE, VOJandTDATA= read(VOJandT)
