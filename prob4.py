@@ -1,16 +1,18 @@
+# first part
 import numpy as np
-import os
-import librosa
 from fastdtw import fastdtw
 from scipy.spatial.distance import euclidean
+
+import librosa
 from scipy.io.wavfile import WavFileWarning, read
-# **np.zeros
-# **Return a new array of given shape and type, filled with zeros.
+
 
 
 def dtw(s, t):
     y, x = len(s), len(t)
     dtw_matrix = np.zeros((y+1, x+1))
+    # np.zerosReturn a new array of given shape and type, filled with zeros.
+
     for yindex in range(y+1):
         for xindex in range(x+1):
             dtw_matrix[yindex, xindex] = np.inf
@@ -36,7 +38,14 @@ def dtw(s, t):
 # b = [1, 2, 3, 3, 5, 2, 2, 4, 6, 8]
 # print(a)
 # print(b)
+# print(dtw(a,b))
 
+# using fastdtw library
+# distance, path = fastdtw(a, b, dist=euclidean)
+# print(distance)
+# print(path)
+
+# -------------------------------------------------------------------------------------
 VOJandT = 'VoiceOver_J and T.wav'
 VOmemohon = 'VoiceOver_memohon.wav'
 VOmaaf = 'VoiceOver_maaf.wav'
@@ -75,40 +84,3 @@ print()
 print(fastdtw(VOmaafDATA, JandTaudioDATA)[0])
 print(fastdtw(VOmaafDATA, memohonaudioDATA)[0])
 print(fastdtw(VOmaafDATA, maafaudioDATA)[0])
-
-
-
-
-# distance, path = fastdtw(a, b, dist=euclidean)
-
-# print(distance)
-# print(path)
-
-
-# def dtwwithwindow(s, t, window):
-#     n, m = len(s), len(t)
-#     w = np.max([window, abs(n-m)])
-#     dtw_matrix = np.zeros((n+1, m+1))
-
-#     for i in range(n+1):
-#         for j in range(m+1):
-#             dtw_matrix[i, j] = np.inf
-#     dtw_matrix[0, 0] = 0
-
-#     for i in range(1, n+1):
-#         for j in range(np.max([1, i-w]), np.min([m, i+w])+1):
-#             dtw_matrix[i, j] = 0
-
-#     for i in range(1, n+1):
-#         for j in range(np.max([1, i-w]), np.min([m, i+w])+1):
-#             cost = abs(s[i-1] - t[j-1])
-#             # take last min from a square box
-#             last_min = np.min(
-#                 [dtw_matrix[i-1, j], dtw_matrix[i, j-1], dtw_matrix[i-1, j-1]])
-#             dtw_matrix[i, j] = cost + last_min
-#     return dtw_matrix
-
-
-# c = [1, 2, 3, 3, 5]
-# d = [1, 2, 2, 2, 2, 2, 2, 4]
-# print(dtwwithwindow(c, d, 3))
