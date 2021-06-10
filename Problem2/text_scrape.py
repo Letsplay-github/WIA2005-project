@@ -7,14 +7,10 @@ def extractWord(link):
     url = requests.get(link).text
 
     soup = BeautifulSoup(url, 'lxml')
+    
+    fullArticle = []
 
-    article = soup.find('div', class_='articleDetails')
-
-    headline = article.find('div', class_='headline').h1.text
-
-    fullArticle = headline.split()
-
-    story = article.find('div', class_='story')
+    story = soup.select_one("#story-body, .td-post-content, .paragraph, .post-content, #post-6775, .entry-content")
 
     for p in story.find_all('p'):
 
@@ -28,7 +24,7 @@ def extractWord(link):
     space = ['']
 
     def removeSpace(list):
-        return [w.lower() for w in list if w not in space]
+        return [w for w in list if w not in space]
 
     wordlist = removeSpace(wordlist)
 

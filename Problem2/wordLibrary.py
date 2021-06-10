@@ -1,11 +1,11 @@
 from os import read
 
 
-with open('positive.txt', 'r') as p:
+with open('Problem2\positive.txt', 'r') as p:
     positive = p.read()
     p.close()
 
-with open('negative.txt', 'r') as n:
+with open('Problem2\\negative.txt', 'r') as n:
     negative = n.read()
     n.close()
 

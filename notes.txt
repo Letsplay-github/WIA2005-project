@@ -17,12 +17,24 @@ customer3: 'green'
 link for the articles 3 each(need to find more)
 -City-link Express 
     >https://www.bigwheels.my/city-link-buys-isuzu-trucks/
+    >https://www.theborneopost.com/2015/01/07/company-sets-up-collection-centres-for-relief-aid/
+    >https://www.thesundaily.my/gear-up/isuzu-lorries--city-link-s-preferred-choice-AK729310
 -Pos Laju
-    >https://www.prnewswire.com/news-releases/pos-laju-recognized-by-frost--sullivan-for-dominating-the-delivery-service-market-in-malaysia-on-the-strength-of-its-vast-channel-network-301194852.html
+    >https://www.theborneopost.com/2020/07/08/poslaju-customers-urged-to-bear-with-longer-waiting-time/
+    >https://www.lowyat.net/2021/231543/pos-malaysia-introduces-new-contactless-system-for-pos-laju-deliveries/
+    >https://www.thestar.com.my/news/nation/2020/09/08/pos-malaysias-sendparcel-to-hit-record-breaking-two-million-parcels-monthly
 -GDEX
+    >https://www.thesundaily.my/business/after-indonesia-gd-express-spreads-wings-to-vietnam-XL1490000
+    >https://www.thesundaily.my/archive/gdex-seen-shielded-yield-pressures-NTARCH468919
+    >https://www.thesundaily.my/archive/1708651-BSARCH351610
 -J&T
+    >https://www.freemalaysiatoday.com/category/nation/2021/02/07/courier-firm-apologises-for-workers-rage-against-parcels/
+    >https://businessmirror.com.ph/2021/05/25/jt-express-celebrates-another-milestone-with-foton/
+    >https://kr-asia.com/one-masters-two-apprentices-how-indonesias-jt-express-rose-in-china-on-the-back-of-pinduoduo
 -DHL
-    >https://www.nst.com.my/news/nation/2021/02/667583/dhl-express-delivers-first-batch-covid-19-vaccines-malaysia
+    >https://www.freightwaves.com/news/dhl-express-to-launch-new-cargo-airline-in-europe
+    >https://www.freemalaysiatoday.com/category/business/2020/07/01/dhl-temporarily-suspends-chinese-import-shipments-to-india/
+    >https://www.freemalaysiatoday.com/category/business/2019/02/12/dhl-hires-hundreds-of-customs-staff-to-prepare-for-no-deal-brexit/
 
 {% comment %} Problem 4 {% endcomment %}
 references(click ctrl to hover)
