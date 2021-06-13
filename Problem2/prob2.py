@@ -4,6 +4,7 @@ import obo
 import text_scrape
 import plotly.graph_objects as go
 
+# List of article headlines
 headline = ["City-Link: CITY-LINK EXPRESS MAINTAINS ITS FAST & RELIABLE SERVICE WITH ISUZU",
             "City-Link: Company sets up collection centres for relief aid",
             "City-Link: Isuzu lorries = City-Link’s preferred choice",
@@ -20,6 +21,7 @@ headline = ["City-Link: CITY-LINK EXPRESS MAINTAINS ITS FAST & RELIABLE SERVICE 
             "DHL: DHL temporarily suspends Chinese import shipments to India",
             "DHL: DHL hires hundreds of customs staff to prepare for no-deal Brexit"]
 
+# List of article links
 url = ["https://www.bigwheels.my/city-link-buys-isuzu-trucks/",
         "https://www.theborneopost.com/2015/01/07/company-sets-up-collection-centres-for-relief-aid/",
         "https://www.thesundaily.my/gear-up/isuzu-lorries--city-link-s-preferred-choice-AK729310",
@@ -36,6 +38,7 @@ url = ["https://www.bigwheels.my/city-link-buys-isuzu-trucks/",
         "https://www.freemalaysiatoday.com/category/business/2020/07/01/dhl-temporarily-suspends-chinese-import-shipments-to-india/",
         "https://www.freemalaysiatoday.com/category/business/2019/02/12/dhl-hires-hundreds-of-customs-staff-to-prepare-for-no-deal-brexit/"]
 
+# Compile headline and article link in a dictionary as tuple
 article = dict(list(zip(headline, url)))
 
 for x in article :
@@ -44,41 +47,58 @@ for x in article :
 
     link = article[x]
 
+# Scrape the article from websites using BeautifulSoup 4 module
     fullwordlist = text_scrape.extractWord(link)
 
+# Filter, remove and create stop word list, positive word list and negative word list from original word list. 
+# Remaining words in original word list is considered as neutral words.
     stopwordlist = obo.listStopwords(fullwordlist, obo.stopwords)
     positivewordlist = obo.listPositivewords(fullwordlist, obo.positivewords)
     negativewordlist = obo.listNegativewords(fullwordlist, obo.negativewords)
     neutralwordlist = obo.listNeutralwords(fullwordlist, obo.stopwords, obo.positivewords, obo.negativewords)
 
+# Count and store word frequency for each word list in respective dictionary as (word, frequency) tuple
     swdictionary = obo.wordListToFreqDict(stopwordlist)
     pwdictionary = obo.wordListToFreqDict(positivewordlist)
     negwdictionary = obo.wordListToFreqDict(negativewordlist)
     neuwdictionary = obo.wordListToFreqDict(neutralwordlist)
 
+# Sort dictionary items based on frequency in ascending order
     sortedswdict = obo.sortFreqDict(swdictionary)
     sortedpwdict = obo.sortFreqDict(pwdictionary)
     sortednegwdict = obo.sortFreqDict(negwdictionary)
     sortedneuwdict = obo.sortFreqDict(neuwdictionary)
 
+# Print each dictionary content
     # print("Stopwords")
+    # print("")
     # for s in sortedswdict: print(str(s))
+    # print("")
 
     # print("Positivewords")
+    # print("")
     # for s in sortedpwdict: print(str(s))
+    # print("")
 
     # print("Negativewords")
+    # print("")
     # for s in sortednegwdict: print(str(s))
+    # print("")
 
     # print("Neutralwords")
+    # print("")
     # for s in sortedneuwdict: print(str(s))
+    # print("")
 
+# Sum up total positive word in article
     totalpw = 0
     for key in pwdictionary: totalpw += pwdictionary[key]
 
+# Sum up total negative word in article
     totalnegw = 0
     for key in negwdictionary: totalnegw += negwdictionary[key]
 
+# Generate histogram to show article sentiment based on total positive word count and total negative word count
     fig = go.Figure([go.Bar(x=["Positive", "Negative"], y=[totalpw, totalnegw], marker_color=['rgb(87, 171, 255)', 'rgb(255, 87, 87)'])])
     fig.update_layout(title_text= title,
                     title_font_size=30)
