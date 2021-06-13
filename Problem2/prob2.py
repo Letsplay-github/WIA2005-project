@@ -3,6 +3,7 @@
 import obo
 import text_scrape
 import plotly.graph_objects as go
+import time
 
 # List of article headlines
 headline = ["City-Link: CITY-LINK EXPRESS MAINTAINS ITS FAST & RELIABLE SERVICE WITH ISUZU",
@@ -41,11 +42,15 @@ url = ["https://www.bigwheels.my/city-link-buys-isuzu-trucks/",
 # Compile headline and article link in a dictionary as tuple
 article = dict(list(zip(headline, url)))
 
+resultFile = open(r"Problem2\result.txt", "w")
+
 for x in article :
 
     title = x
 
     link = article[x]
+
+    resultFile.write(title + "\n\n")
 
 # Scrape the article from websites using BeautifulSoup 4 module
     fullwordlist = text_scrape.extractWord(link)
@@ -69,26 +74,26 @@ for x in article :
     sortednegwdict = obo.sortFreqDict(negwdictionary)
     sortedneuwdict = obo.sortFreqDict(neuwdictionary)
 
-# Print each dictionary content
-    # print("Stopwords")
-    # print("")
-    # for s in sortedswdict: print(str(s))
-    # print("")
+# Print each dictionary content in result file
+    resultFile.write("Stopwords")
+    resultFile.write("\n")
+    for s in sortedswdict: resultFile.write(str(s) + "\n")
+    resultFile.write("\n")
 
-    # print("Positivewords")
-    # print("")
-    # for s in sortedpwdict: print(str(s))
-    # print("")
+    resultFile.write("Positivewords")
+    resultFile.write("\n")
+    for s in sortedpwdict: resultFile.write(str(s) + "\n")
+    resultFile.write("\n")
 
-    # print("Negativewords")
-    # print("")
-    # for s in sortednegwdict: print(str(s))
-    # print("")
+    resultFile.write("Negativewords")
+    resultFile.write("\n")
+    for s in sortednegwdict: resultFile.write(str(s) + "\n")
+    resultFile.write("\n")
 
-    # print("Neutralwords")
-    # print("")
-    # for s in sortedneuwdict: print(str(s))
-    # print("")
+    resultFile.write("Neutralwords")
+    resultFile.write("\n")
+    for s in sortedneuwdict: resultFile.write(str(s) + "\n")
+    resultFile.write("\n")
 
 # Sum up total positive word in article
     totalpw = 0
@@ -98,8 +103,14 @@ for x in article :
     totalnegw = 0
     for key in negwdictionary: totalnegw += negwdictionary[key]
 
+    resultFile.write("Positive words:" + str(totalpw) + "\n")
+    resultFile.write("Negative words:" + str(totalnegw) + "\n\n")
+
+
 # Generate histogram to show article sentiment based on total positive word count and total negative word count
     fig = go.Figure([go.Bar(x=["Positive", "Negative"], y=[totalpw, totalnegw], marker_color=['rgb(87, 171, 255)', 'rgb(255, 87, 87)'])])
     fig.update_layout(title_text= title,
                     title_font_size=30)
     fig.show()
+
+    time.sleep(1)
