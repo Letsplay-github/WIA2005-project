@@ -2,21 +2,18 @@ import folium
 from folium.map import Marker
 import openrouteservice as ors
 
-client = ors.Client(
-    key="5b3ce3597851110001cf6248fa79019d400d45668f1d7c8ae9cfde10")
+client = ors.Client(key="5b3ce3597851110001cf6248fa79019d400d45668f1d7c8ae9cfde10")
 # m is the map
 m = folium.Map(location=[3.128753803910095,
                101.59555418169249], zoom_start=11.2)
-
 
 class deliveryhub:
     def __init__(self, name, latitude, longitude, imgname):
         self.name = name
         self.latitude = latitude
         self.longitude = longitude
-        popup = '<img src="./Icon Images/' + imgname + '" alt="">'
-        self.marker = folium.Marker(location=(
-            latitude, longitude), popup=popup, tooltip="click for more information")
+        popup = '<img src="/Icon Images/' + imgname + '" alt="">'
+        self.marker = folium.Marker(location=(latitude, longitude),popup=popup, tooltip="click for more information")
 
 
 # all deliveryhub in one tuple
@@ -44,8 +41,7 @@ class customer:
         self.popuporigin = originname + "(Customer " + num + "'s origin)"
         self.popupdestination = destinationname + \
             "(Customer " + num + "'s destination"
-        self.direction = client.directions(coordinates=[(originlon, originlat), (
-            destinationlon, destinationlat)], profile='driving-car', format='geojson')
+        self.direction = client.directions(coordinates=[(originlon, originlat), (destinationlon, destinationlat)], profile='driving-car', format='geojson')
         # distance in between is in kilometers
         self.distanceinbetween = self.direction['features'][0]['properties']['summary']['distance']/1000
         self.routelist = []
@@ -60,17 +56,44 @@ class customer:
 
         temp = route((self.originlon, self.originlat), deliveryhub,
                      (self.destinationlon, self.destinationlat))
-        routelistlen = len(self.routelist)
-        if(routelistlen == 0):
-            self.routelist.append(temp)
-        else:
-            for j in range(0, routelistlen):
-                if temp.distance < self.routelist[j].distance:
-                    self.routelist.insert(j, temp)
-                    break
-                elif j == routelistlen-1:
-                    self.routelist.append(temp)
-                    break
+        self.routelist.append(temp)
+        # routelistlen = len(self.routelist)
+        # if(routelistlen == 0):
+        #     self.routelist.append(temp)
+        # else:
+        #     for j in range(0, routelistlen):
+        #         if temp.distance < self.routelist[j].distance:
+        #             self.routelist.insert(j, temp)
+        #             break
+        #         elif j == routelistlen-1:
+        #             self.routelist.append(temp)
+        #             break
+
+    def sortallroute(self):
+        #Cocktail sort
+        n = len(self.routelist)
+        is_swapped = True
+        begin = 0  
+        end = n - 1
+        while is_swapped:  
+            is_swapped = False 
+            for i in range(0,n-1):  
+                if self.routelist[i].distance > self.routelist[i + 1].distance:  
+                    temp = self.routelist[i]
+                    self.routelist[i]=self.routelist[i+1]
+                    self.routelist[i+1]=temp
+                    is_swapped = True
+            if not(is_swapped):  
+                break;  
+            is_swapped = False
+            for i in range(end-1,begin-1,-1):  
+                if self.routelist[i].distance > self.routelist[i + 1].distance:  
+                    temp = self.routelist[i]
+                    self.routelist[i]=self.routelist[i+1]
+                    self.routelist[i+1]=temp
+                    is_swapped = True
+            begin+=1
+
 
     def getshortestroad(self):
         return self.routelist[0].theroute
@@ -108,6 +131,7 @@ print()
 for c in customerlist:
     for d in deliveryhublist:
         c.stopby(d)
+    c.sortallroute()
 
 # layer group(for each customer)
 grp = [
@@ -116,7 +140,7 @@ grp = [
     folium.FeatureGroup(name='C3 shortest route', control=True),
 ]
 
-
+#add customer marker
 for j in range(0, len(customerlist)):
     customerlist[j].originmarker.add_to(grp[j])
     customerlist[j].destinationmarker.add_to(grp[j])
