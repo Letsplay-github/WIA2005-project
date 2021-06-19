@@ -15,20 +15,6 @@ class deliveryhub:
         popup = '<img src="/Icon Images/' + imgname + '" alt="">'
         self.marker = folium.Marker(location=(latitude, longitude),popup=popup, tooltip="click for more information")
 
-
-# all deliveryhub in one tuple
-deliveryhublist = [deliveryhub("City-link Express",
-                               3.0319924887507144, 101.37344116244806, "Citylink icon.png"),
-                   deliveryhub("Pos Laju",
-                               3.112924170027219, 101.63982650389863, "Poslaju icon.png"),
-                   deliveryhub("GDEX",
-                               3.265154613796736, 101.68024844550233, "Gdex icon.png"),
-                   deliveryhub("J&T",
-                               2.9441205329488325, 101.7901521759029, "J&T icon.png"),
-                   deliveryhub("DHL",
-                               3.2127230893650065, 101.57467295692778, "DHL icon.png")]
-
-
 class customer:
     def __init__(self, num, customercolor, originname, originlat, originlon, destinationname, destinationlat, destinationlon):
         self.num = num
@@ -83,8 +69,8 @@ class customer:
                     self.routelist[i]=self.routelist[i+1]
                     self.routelist[i+1]=temp
                     is_swapped = True
-            if not(is_swapped):  
-                break;  
+            if not(is_swapped):
+                break; #already sorted(ascending order)
             is_swapped = False
             for i in range(end-1,begin-1,-1):  
                 if self.routelist[i].distance > self.routelist[i + 1].distance:  
@@ -101,15 +87,6 @@ class customer:
     def getshortestroaddistance(self):
         return self.routelist[0].distance
 
-
-customerlist = [customer('1', 'lightred', "Rawang", 3.3615395462207878, 101.56318183511695,
-                "Bukit Jeluton", 3.1000170516638885, 101.53071480907951),
-                customer('2', 'purple', "Subang Jaya", 3.049398375759954, 101.58546611160301,
-                "Puncak Alam", 3.227994355250716, 101.42730357605375),
-                customer('3', 'green', "Ampang", 3.141855957281073, 101.76158583424586,
-                "Cyberjaya", 2.9188704151716256, 101.65251821655471)]
-
-
 class route:
     def __init__(self, originlonlat, deliveryhub, destinationlonlat):
         self.deliveryhub = deliveryhub
@@ -119,8 +96,26 @@ class route:
             coordinates=self.coordinates, profile='driving-car', format='geojson')
         self.distance = self.theroute['features'][0]['properties']['summary']['distance']/1000
 
+customerlist = [customer('1', 'lightred', "Rawang", 3.3615395462207878, 101.56318183511695,
+                "Bukit Jeluton", 3.1000170516638885, 101.53071480907951),
+                customer('2', 'purple', "Subang Jaya", 3.049398375759954, 101.58546611160301,
+                "Puncak Alam", 3.227994355250716, 101.42730357605375),
+                customer('3', 'green', "Ampang", 3.141855957281073, 101.76158583424586,
+                "Cyberjaya", 2.9188704151716256, 101.65251821655471)]
 
-# distance of origin to destination
+# all deliveryhub in one tuple
+deliveryhublist = [deliveryhub("City-link Express",
+                               3.0319924887507144, 101.37344116244806, "Citylink icon.png"),
+                   deliveryhub("Pos Laju",
+                               3.112924170027219, 101.63982650389863, "Poslaju icon.png"),
+                   deliveryhub("GDEX",
+                               3.265154613796736, 101.68024844550233, "Gdex icon.png"),
+                   deliveryhub("J&T",
+                               2.9441205329488325, 101.7901521759029, "J&T icon.png"),
+                   deliveryhub("DHL",
+                               3.2127230893650065, 101.57467295692778, "DHL icon.png")]
+
+# distance of origin to destination(without delivery hub)
 for k in customerlist:
     print("Distance between origin(" + k.originname + ") and destination(" + k.destinationname +
           ") of customer " + k.num + ": " + str(k.distanceinbetween) + "  kilometers")
@@ -132,6 +127,13 @@ for c in customerlist:
     for d in deliveryhublist:
         c.stopby(d)
     c.sortallroute()
+
+for c in customerlist:
+    print ('customer ' + c.num)
+    for i in range(0, len(c.routelist), 1):
+        s = "Using " + c.routelist[i].deliveryhub.name + " ="
+        print('{:<25}'.format(s) + " " + str(c.routelist[i].distance))
+    print()
 
 # layer group(for each customer)
 grp = [
@@ -146,19 +148,11 @@ for j in range(0, len(customerlist)):
     customerlist[j].destinationmarker.add_to(grp[j])
     folium.GeoJson(customerlist[j].getshortestroad(), name='route', tooltip=str(
         customerlist[j].getshortestroaddistance()) + "kilometers").add_to(grp[j])
-    m.add_children(grp[j])
-
+    m.add_child(grp[j])
 
 # add marker to map
 for i in deliveryhublist:
     i.marker.add_to(m)
-
-
-for c in customerlist:
-    for i in range(0, len(c.routelist), 1):
-        print("customer " + c.num + " using " +
-              c.routelist[i].deliveryhub.name + "with distance of " + str(c.routelist[i].distance))
-    print()
     
 # add route to map
 folium.LayerControl().add_to(m)
