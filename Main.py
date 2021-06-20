@@ -39,7 +39,6 @@ class customer:
                                                tooltip="click for more information", icon=folium.Icon(icon="home", color=customercolor))
 
     def stopby(self, deliveryhub):
-
         temp = route((self.originlon, self.originlat), deliveryhub,
                      (self.destinationlon, self.destinationlat))
         self.routelist.append(temp)
@@ -62,8 +61,8 @@ class customer:
         begin = 0  
         end = n - 1
         while is_swapped:  
-            is_swapped = False 
-            for i in range(0,n-1):  
+            is_swapped = False
+            for i in range(0,end):  
                 if self.routelist[i].distance > self.routelist[i + 1].distance:  
                     temp = self.routelist[i]
                     self.routelist[i]=self.routelist[i+1]
@@ -71,12 +70,13 @@ class customer:
                     is_swapped = True
             if not(is_swapped):
                 break; #already sorted(ascending order)
+            end-=1
             is_swapped = False
-            for i in range(end-1,begin-1,-1):  
-                if self.routelist[i].distance > self.routelist[i + 1].distance:  
+            for i in range(end,begin,-1):  
+                if self.routelist[i].distance < self.routelist[i-1].distance:  
                     temp = self.routelist[i]
-                    self.routelist[i]=self.routelist[i+1]
-                    self.routelist[i+1]=temp
+                    self.routelist[i]=self.routelist[i-1]
+                    self.routelist[i-1]=temp
                     is_swapped = True
             begin+=1
 
@@ -96,6 +96,7 @@ class route:
             coordinates=self.coordinates, profile='driving-car', format='geojson')
         self.distance = self.theroute['features'][0]['properties']['summary']['distance']/1000
 
+# list of customers
 customerlist = [customer('1', 'lightred', "Rawang", 3.3615395462207878, 101.56318183511695,
                 "Bukit Jeluton", 3.1000170516638885, 101.53071480907951),
                 customer('2', 'purple', "Subang Jaya", 3.049398375759954, 101.58546611160301,
@@ -103,7 +104,7 @@ customerlist = [customer('1', 'lightred', "Rawang", 3.3615395462207878, 101.5631
                 customer('3', 'green', "Ampang", 3.141855957281073, 101.76158583424586,
                 "Cyberjaya", 2.9188704151716256, 101.65251821655471)]
 
-# all deliveryhub in one tuple
+# all deliveryhub
 deliveryhublist = [deliveryhub("City-link Express",
                                3.0319924887507144, 101.37344116244806, "Citylink icon.png"),
                    deliveryhub("Pos Laju",
@@ -122,17 +123,26 @@ for k in customerlist:
 print()
 # create route for the customers
 
-# add all delivery to customer class(customer class will arranged which one is the shortest)
+# add all deliveryhub to customer class(customer class will arranged which one is the shortest)
 for c in customerlist:
     for d in deliveryhublist:
         c.stopby(d)
-    c.sortallroute()
+
+#print unsorted distance of customer 1(only to see the difference)
+print ('C ' + customerlist[0].num)
+for i in range(0, len(customerlist[0].routelist), 1):
+        s = "Using " + customerlist[0].routelist[i].deliveryhub.name
+        print('{:<25}'.format(s) + " = " + str(customerlist[0].routelist[i].distance))
+print()
+
+for c in customerlist:
+    c.sortallroute()#sort the route
 
 for c in customerlist:
     print ('customer ' + c.num)
     for i in range(0, len(c.routelist), 1):
-        s = "Using " + c.routelist[i].deliveryhub.name + " ="
-        print('{:<25}'.format(s) + " " + str(c.routelist[i].distance))
+        s = "Using " + c.routelist[i].deliveryhub.name
+        print('{:<25}'.format(s) + " = " + str(c.routelist[i].distance))
     print()
 
 # layer group(for each customer)
