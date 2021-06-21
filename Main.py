@@ -20,8 +20,7 @@ class route:
         self.deliveryhub = deliveryhub
         self.coordinates = [originlonlat, [
             deliveryhub.longitude, deliveryhub.latitude], destinationlonlat]
-        self.theroute = client.directions(
-            coordinates=self.coordinates, profile='driving-car', format='geojson')
+        self.theroute = client.directions(coordinates=self.coordinates, profile='driving-car', format='geojson')
         self.distance = self.theroute['features'][0]['properties']['summary']['distance']/1000
 
 class customer:
@@ -72,7 +71,7 @@ class customer:
         end = n - 1
         while is_swapped:  
             is_swapped = False
-            for i in range(0,end):  
+            for i in range(begin,end):  
                 if self.routelist[i].distance > self.routelist[i + 1].distance:  
                     temp = self.routelist[i]
                     self.routelist[i]=self.routelist[i+1]
