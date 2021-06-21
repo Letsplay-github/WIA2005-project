@@ -15,6 +15,15 @@ class deliveryhub:
         popup = '<img src="/Icon Images/' + imgname + '" alt="">'
         self.marker = folium.Marker(location=(latitude, longitude),popup=popup, tooltip="click for more information")
 
+class route:
+    def __init__(self, originlonlat, deliveryhub, destinationlonlat):
+        self.deliveryhub = deliveryhub
+        self.coordinates = [originlonlat, [
+            deliveryhub.longitude, deliveryhub.latitude], destinationlonlat]
+        self.theroute = client.directions(
+            coordinates=self.coordinates, profile='driving-car', format='geojson')
+        self.distance = self.theroute['features'][0]['properties']['summary']['distance']/1000
+
 class customer:
     def __init__(self, num, customercolor, originname, originlat, originlon, destinationname, destinationlat, destinationlon):
         self.num = num
@@ -27,6 +36,7 @@ class customer:
         self.popuporigin = originname + "(Customer " + num + "'s origin)"
         self.popupdestination = destinationname + \
             "(Customer " + num + "'s destination"
+        #direction
         self.direction = client.directions(coordinates=[(originlon, originlat), (destinationlon, destinationlat)], profile='driving-car', format='geojson')
         # distance in between is in kilometers
         self.distanceinbetween = self.direction['features'][0]['properties']['summary']['distance']/1000
@@ -86,15 +96,6 @@ class customer:
 
     def getshortestroaddistance(self):
         return self.routelist[0].distance
-
-class route:
-    def __init__(self, originlonlat, deliveryhub, destinationlonlat):
-        self.deliveryhub = deliveryhub
-        self.coordinates = [originlonlat, [
-            deliveryhub.longitude, deliveryhub.latitude], destinationlonlat]
-        self.theroute = client.directions(
-            coordinates=self.coordinates, profile='driving-car', format='geojson')
-        self.distance = self.theroute['features'][0]['properties']['summary']['distance']/1000
 
 # list of customers
 customerlist = [customer('1', 'lightred', "Rawang", 3.3615395462207878, 101.56318183511695,
